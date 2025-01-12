@@ -1,11 +1,5 @@
 
-provider "helm" {
-  kubernetes {
-    host                   = var.eks_cluster_endpoint
-    cluster_ca_certificate = var.eks_cluster_ca
-    token                  = var.eks_cluster_token
-  }
-}
+
 
 resource "helm_release" "application" {
   name       = "metrics-server"
@@ -15,3 +9,5 @@ resource "helm_release" "application" {
   version    = var.version
   values     = [file(var.values_file)]
 }
+
+

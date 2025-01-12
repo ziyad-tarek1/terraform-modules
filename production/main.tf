@@ -3,6 +3,13 @@ locals {
   clusterName = var.cluster_name
 }
 
+data "aws_eks_cluster" "eks" {
+  name = module.eks.eks_cluster_name
+}
+
+data "aws_eks_cluster_auth" "eks" {
+  name = module.eks.eks_cluster_name
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -58,9 +65,7 @@ module "eks" {
 
 module "metrics_server" {
   source             = "../modules/applications/metrics-server"
-  eks_cluster_endpoint = module.eks.eks_cluster_endpoint
-  eks_cluster_ca       = base64decode(module.eks.eks_cluster_ca)
-  eks_cluster_token    = module.eks.eks_cluster_auth_token
+
   namespace            = "kube-system"
   chart                = "metrics-server"
   repository           = "https://kubernetes-sigs.github.io/metrics-server/"

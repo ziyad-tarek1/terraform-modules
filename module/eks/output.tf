@@ -38,6 +38,8 @@ output "eks_cluster_name" {
   value       = data.aws_eks_cluster.eks.name
 }
 
+
+
 output "eks_cluster_arn" {
   description = "The ARN of the EKS cluster."
   value       = data.aws_eks_cluster.eks.arn

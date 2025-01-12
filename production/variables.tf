@@ -11,3 +11,7 @@ variable "cluster_name" {
 
   
 }
+
+variable "eks_cluster_endpoint" {}
+variable "eks_cluster_ca" {}
+variable "eks_cluster_token" {}
