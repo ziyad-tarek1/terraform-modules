@@ -112,10 +112,21 @@ resource "aws_eks_addon" "pod-addon" {
   addon_version = "v1.3.4-eksbuild.1"
 }
 
+# Fetch the EKS cluster details
 data "aws_eks_cluster" "eks" {
-  name = module.eks_cluster.eks_cluster_name
+  name = aws_eks_cluster.eks.name
 }
 
+# Fetch the authentication token for the EKS cluster
 data "aws_eks_cluster_auth" "eks" {
-  name = module.eks_cluster.eks_cluster_name
+  name = aws_eks_cluster.eks.name
 }
+
+
+
+
+/*output "eks_cluster_ca" {
+  description = "The certificate authority data of the EKS cluster."
+  value       = data.aws_eks_cluster.eks.certificate_authority[0].data
+}*/
+

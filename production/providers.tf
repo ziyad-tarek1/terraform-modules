@@ -2,25 +2,17 @@ provider "aws" {
   region = var.region
 }
 
-/*terraform {
-    backend "s3" {}
-    required_version = ">= 1.0"
-    required_providers {
-        aws = {
 
-            source = "hashicorp/aws"
-            version = "~> 5.49"
-        }     
-    } 
-}*/
-
+provider "kubernetes" {
+    host                   = module.eks.eks_cluster_endpoint
+    cluster_ca_certificate = base64decode(module.eks.eks_cluster_ca)
+    token                  = module.eks.eks_cluster_auth_token
+}
 
 provider "helm" {
   kubernetes {
-
-    host                   = var.eks_cluster_endpoint
-    cluster_ca_certificate = var.eks_cluster_ca
-    token                  = var.eks_cluster_token
-
+    host                   = module.eks.eks_cluster_endpoint
+    cluster_ca_certificate = base64decode(module.eks.eks_cluster_ca)
+    token                  = module.eks.eks_cluster_auth_token
   }
 }
